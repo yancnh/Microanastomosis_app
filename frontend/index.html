@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101214" />
+    <title>Microanastomosis Skill Assessment</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <h1>Microanastomosis Skill Assessment</h1>
+          <p>Detection, tracking, kinematics, action history, and scene analysis</p>
+        </div>
+        <div class="status-strip" aria-live="polite">
+          <span id="sourceStatus" class="pill">Demo stream</span>
+          <span id="backendStatus" class="pill">Backend checking</span>
+          <span id="modelStatus" class="pill ok">Models ready</span>
+          <span id="fpsStatus" class="pill">0 fps</span>
+        </div>
+      </header>
+
+      <section class="workspace">
+        <section class="video-stage" aria-label="Live video with object tracking overlay">
+          <div class="stage-toolbar">
+            <div class="segmented" role="group" aria-label="Video source">
+              <button id="demoBtn" class="active" type="button">Demo</button>
+              <button id="cameraBtn" type="button">Camera</button>
+              <label class="file-button">
+                Video
+                <input id="videoFile" type="file" accept="video/*" />
+              </label>
+            </div>
+            <div class="controls">
+              <button id="playPauseBtn" type="button" title="Pause or resume analysis">Pause</button>
+              <button id="snapshotBtn" type="button" title="Add current state to chat">Snapshot</button>
+            </div>
+          </div>
+          <div class="video-wrap">
+            <video id="video" muted playsinline></video>
+            <canvas id="overlay"></canvas>
+            <canvas id="demoCanvas"></canvas>
+          </div>
+        </section>
+
+        <aside class="side-panel" aria-label="Scene summary and performance">
+          <section class="metrics-band">
+            <article>
+              <span>Performance (heuristic)</span>
+              <strong id="scoreValue">--</strong>
+              <meter id="scoreMeter" min="0" max="100" value="0"></meter>
+            </article>
+            <article>
+              <span>Objects</span>
+              <strong id="objectCount">0</strong>
+            </article>
+            <article>
+              <span>Dominant Action</span>
+              <strong id="dominantAction">Idle</strong>
+            </article>
+          </section>
+
+          <section class="panel-block">
+            <div class="panel-heading">
+              <h2>Tracked Objects</h2>
+              <span id="latencyValue">-- ms</span>
+            </div>
+            <div id="objectList" class="object-list"></div>
+          </section>
+
+          <section class="panel-block">
+            <div class="panel-heading">
+              <h2>Kinematics</h2>
+              <span>speed / acceleration</span>
+            </div>
+            <canvas id="kinematicsChart" class="chart" width="640" height="210"></canvas>
+          </section>
+        </aside>
+      </section>
+
+      <section class="analysis-grid">
+        <section class="panel-block timeline-panel">
+          <div class="panel-heading">
+            <h2>Actions Over Time</h2>
+            <span id="elapsedValue">00:00</span>
+          </div>
+          <div id="actionTimeline" class="timeline"></div>
+        </section>
+
+        <section class="panel-block chat-panel">
+          <div class="panel-heading">
+            <h2>Interactive Analyst Chat</h2>
+            <span>scene + performance</span>
+          </div>
+          <div id="chatLog" class="chat-log" aria-live="polite"></div>
+          <!-- Using div+button instead of form so there is no page-reload risk -->
+          <div class="chat-form">
+            <input
+              id="chatInput"
+              type="text"
+              autocomplete="off"
+              placeholder="Ask about the scene, motion, actions, or performance..."
+            />
+            <button id="chatSendBtn" type="button">Send</button>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
