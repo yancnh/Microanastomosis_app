@@ -1,11 +1,11 @@
 # Microanastomosis Training App
-##
+## Demo
 
 https://github.com/user-attachments/assets/3420876d-dc08-4cb5-8457-c30764820aa8
 
 
 
- Demo 
+## Functions
 The app connects object tracking, action segmentaton and LLM modelsthrough a thin FastAPI process:
 
 - `microanastomosis_tool`: YOLO + DeepSORT instrument detection/tracking
